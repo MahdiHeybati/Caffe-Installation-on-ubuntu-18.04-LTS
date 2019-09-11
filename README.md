@@ -1,4 +1,4 @@
-#Caffe installation on ubuntu-18.04 LTS, python 2.7, Cuda 10.0, Cudnn 7.6.3 .
+#  Caffe installation on ubuntu-18.04 LTS, python 2.7, Cuda 10.0, Cudnn 7.6.3 .
 
 ### Follow below steps
 
