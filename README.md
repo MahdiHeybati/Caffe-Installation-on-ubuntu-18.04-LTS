@@ -33,7 +33,6 @@
 
 from below line{
 
-	```shell
 	## Refer to http://caffe.berkeleyvision.org/installation.html
 	# Contributions simplifying and improving our build system are welcome!
 
@@ -148,29 +147,20 @@ from below line{
 
 	# enable pretty build (comment to see full commands)
 	Q ?= @
-	```
 
 } till above line
 
 	g) run commands below in order :
-		1) 
-			```shell
-			make all -j6 // uses 6 cores to make
-			```
-		2) 
-			```shell
-			make test -j6
-			```
+		1) make all -j6 // uses 6 cores to make
+			
+		2) make test -j6
+			
 			(* if following error occurs do these steps :
 			"src/caffe/test/test_smooth_L1_loss_layer.cpp:11:35: fatal error: caffe/vision_layers.hpp"   
 			-solution : remove or comment below line from /src/caffe/test/test_smooth_L1_loss_layer.cpp :
 				#include "caffe/vision_layers.hpp"
-		3) 
-			```shell
-			make runtest -j6
-			```
-		4) 
-			```shell
-			make distribute -j6
-			```
+		3) make runtest -j6
+			
+		4) make distribute -j6
+			
 	h) follow step 4 from https://github.com/rbgirshick/py-faster-rcnn
