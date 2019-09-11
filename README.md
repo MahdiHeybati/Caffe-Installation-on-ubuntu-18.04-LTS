@@ -32,25 +32,25 @@ b) install Cython with pip and build cython modules in step 3
 
 c) do these adjustments :
 
-	1) cd caffe-fast-rcnn  
+1) cd caffe-fast-rcnn  
+
+2) git remote add caffe https://github.com/BVLC/caffe.git  
+
+3) git fetch caffe 
+
+4) git merge -X theirs caffe/master
+
+5) remove or comment below line from include/caffe/layers/python_layer.hpp after merging.
+
+
+	self_.attr("phase") = static_cast<int>(this->phase_); 
 	
-	2) git remote add caffe https://github.com/BVLC/caffe.git  
 	
-	3) git fetch caffe 
-	
-	4) git merge -X theirs caffe/master
-	
-	5) remove or comment below line from include/caffe/layers/python_layer.hpp after merging.
-	
-		```
-		self_.attr("phase") = static_cast<int>(this->phase_); 
-		```
-		
 d) create Makefile.config by : 
 
-	```
+	
 	cp Makefile.config.example Makefile.config
-	```
+
 	
 e) copy these configs into Makefile :
 	
