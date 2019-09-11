@@ -10,12 +10,12 @@
 
 4- install cuda 10.0 :
 
-	a) install cuda 10.0 deb file for local repository
-	
-	b) sudo apt update
-	
-	c) sudo apt install cuda-toolkit-10-0
-	
+a) install cuda 10.0 deb file for local repository
+
+b) sudo apt update
+
+c) sudo apt install cuda-toolkit-10-0
+
 5- add cuda to path using [here](https://www.pugetsystems.com/labs/hpc/How-To-Install-CUDA-10-1-on-Ubuntu-19-04-1405/#System-widealternative) or [here](https://www.howtoforge.com/tutorial/how-to-install-nvidia-cuda-on-ubuntu-1804/)
 
 6- install cudnn from source using [here](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#installlinux-tar)
@@ -26,33 +26,33 @@
 
 9- install caffe with fast-rcnn :
 
-	a) git clone fast-rcnn from [here](https://github.com/rbgirshick/py-faster-rcnn) steps 1 and 2
+a) git clone fast-rcnn from [here](https://github.com/rbgirshick/py-faster-rcnn) steps 1 and 2
+
+b) install Cython with pip and build cython modules in step 3
+
+c) do these adjustments :
+
+	1) cd caffe-fast-rcnn  
 	
-	b) install Cython with pip and build cython modules in step 3
+	2) git remote add caffe https://github.com/BVLC/caffe.git  
 	
-	c) do these adjustments :
+	3) git fetch caffe 
 	
-		1) cd caffe-fast-rcnn  
-		
-		2) git remote add caffe https://github.com/BVLC/caffe.git  
-		
-		3) git fetch caffe 
-		
-		4) git merge -X theirs caffe/master
-		
-		5) remove or comment below line from include/caffe/layers/python_layer.hpp after merging.
-		
-			```
-			self_.attr("phase") = static_cast<int>(this->phase_); 
-			```
-			
-	d) create Makefile.config by : 
+	4) git merge -X theirs caffe/master
+	
+	5) remove or comment below line from include/caffe/layers/python_layer.hpp after merging.
 	
 		```
-		cp Makefile.config.example Makefile.config
+		self_.attr("phase") = static_cast<int>(this->phase_); 
 		```
 		
-	e) copy these configs into Makefile :
+d) create Makefile.config by : 
+
+	```
+	cp Makefile.config.example Makefile.config
+	```
+	
+e) copy these configs into Makefile :
 	
 
 from below line{
@@ -174,27 +174,19 @@ from below line{
 
 } till above line
 
+
+g) run commands below in order :
 	
-	g) run commands below in order :
-		
-		1)
-			```
-			make all -j6 // uses 6 cores to make
-			```	
-		2) 
-			```
-			make test -j6
-			```
-			(* if following error occurs do these steps :
-			"src/caffe/test/test_smooth_L1_loss_layer.cpp:11:35: fatal error: caffe/vision_layers.hpp"   
-			-solution : remove or comment below line from /src/caffe/test/test_smooth_L1_loss_layer.cpp :
-				#include "caffe/vision_layers.hpp"
-		3) 
-			```
-			make runtest -j6
-			```
-		4) 
-			```
-			make distribute -j6
-			```
-	h) follow step 4 from https://github.com/rbgirshick/py-faster-rcnn
+1) make all -j6 // uses 6 cores to make
+	
+2) make test -j6
+	
+	(* if following error occurs do these steps :
+	"src/caffe/test/test_smooth_L1_loss_layer.cpp:11:35: fatal error: caffe/vision_layers.hpp"   
+	-solution : remove or comment below line from /src/caffe/test/test_smooth_L1_loss_layer.cpp :
+		#include "caffe/vision_layers.hpp"
+3) make runtest -j6
+	
+4) make distribute -j6
+	
+h) follow step 4 from https://github.com/rbgirshick/py-faster-rcnn
